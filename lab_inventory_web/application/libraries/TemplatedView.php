@@ -33,12 +33,17 @@ class TemplatedView
      */
     const PREFIX = "template/";
     /***
+     * pages prefix
+     */
+    const PAGES = "pages/";
+    /***
      * set controller
      * @param $controller
      * @return void
      */
     public function setController($controller){
         $this->controller = $controller;
+        $this->controller->load->helper('url');
     }
 
     /***
@@ -82,13 +87,13 @@ class TemplatedView
      * @param $content
      * @return void
      */
-    public function buildView($content){
+    public function serve($content){
         $components = array();
         //get all content of viewWrappers and set result into $components
         foreach($this->viewWrapper as $key=>$value){
             $components[$key]=$this->controller->load->view($value, $this->attributes, true);
         }
-        $components['content'] = $this->controller->load->view($content, $this->attributes, true);
+        $components['content'] = $this->controller->load->view(TemplatedView::PAGES.$content, $this->attributes, true);
         //empty attribute
         $this->attributes = array();
         //set $components into $attributes with name template

@@ -1,0 +1,11 @@
+/**
+*global-css
+*/
+.login-box{
+    position:relative !important;
+}
+
+.login-page{
+    overflow-y:hidden;
+}
+

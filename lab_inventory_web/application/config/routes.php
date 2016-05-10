@@ -49,6 +49,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'ApplicationController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+//put your own route here
+/****
+ *ApplicationController
+ * path /
+ */
+
+$route['login']['get'] = 'ApplicationController/login';
+$route['login']['post'] = 'ApplicationController/doLogin';
+$route['register']['get'] = 'ApplicationController/register';
+$route['register']['post'] = 'ApplicationController/doRegister';
+$route['admin']['get'] = 'AdminController/home';

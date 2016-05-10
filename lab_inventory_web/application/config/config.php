@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/project/lab_ci/lab_inventory_web/';
 
 /*
 |--------------------------------------------------------------------------
@@ -512,13 +512,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-//set your customize uri here
-$config['wineRoute'] = array(
-  'home'=>array(
-      "controller"=>"homeController",
-      "method"=>array(
-          "/"=>"index",
-          "about"=>"about"
-      )
-  )
-);
+

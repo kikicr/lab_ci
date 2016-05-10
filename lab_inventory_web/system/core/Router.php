@@ -154,7 +154,6 @@ class CI_Router {
 	 */
 	protected function _set_routing()
 	{
-
 		// Load the routes.php file. It would be great if we could
 		// skip this for enable_query_strings = TRUE, but then
 		// default_controller would be empty ...
@@ -196,8 +195,7 @@ class CI_Router {
 			}
 
 			$_c = trim($this->config->item('controller_trigger'));
-
-			if ( ! empty($_GET[$_c]) && !array_key_exists($_GET[$_c],$this->routes['wineRoute']))
+			if ( ! empty($_GET[$_c]))
 			{
 				$this->uri->filter_uri($_GET[$_c]);
 				$this->set_class($_GET[$_c]);
@@ -249,31 +247,6 @@ class CI_Router {
 	 */
 	protected function _set_request($segments = array())
 	{
-		//wine route code
-		//by : akbar.pambudi
-		if(array_key_exists($segments[0],$this->config->item('wineRoute'))){
-
-			$ctrl = $segments[0];
-			array_unshift($segments, NULL);
-			unset($segments[0]);
-			unset($segments[1]);
-			$segments = array_values($segments);
-			$httpMethod = strlen(implode("/",$segments))>0?implode("/",$segments):'/';
-
-
-
-			$segments[0] ="/";
-			$segments[1] = $this->config->item('wineRoute')[$ctrl]['controller'];
-			$segments[2] = $this->config->item('wineRoute')[$ctrl]['method'][$httpMethod];
-			$segments = $this->_validate_request($segments);
-			//wine route code
-			$this->set_class($segments[0]);
-			$this->set_method($segments[1]);
-
-			$this->uri->rsegments = $segments;
-
-
-		}else {
 		$segments = $this->_validate_request($segments);
 		// If we don't have any segments left - try the default controller;
 		// WARNING: Directories get shifted out of the segments array!
@@ -292,19 +265,20 @@ class CI_Router {
 			}
 		}
 
-
-			$this->set_class($segments[0]);
-			if (isset($segments[1])) {
-				$this->set_method($segments[1]);
-			} else {
-				$segments[1] = 'index';
-			}
-
-			array_unshift($segments, NULL);
-			unset($segments[0]);
-			$this->uri->rsegments = $segments;
+		$this->set_class($segments[0]);
+		if (isset($segments[1]))
+		{
+			$this->set_method($segments[1]);
 		}
+		else
+		{
+			$segments[1] = 'index';
 		}
+
+		array_unshift($segments, NULL);
+		unset($segments[0]);
+		$this->uri->rsegments = $segments;
+	}
 
 	// --------------------------------------------------------------------
 
